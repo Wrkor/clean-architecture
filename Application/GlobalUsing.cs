@@ -1,4 +1,5 @@
 global using Application.Data.DatabaseContext;
+global using Application.Dtos;
 global using Application.Services;
 global using Domain.Entities;
 global using Domain.ValueObjects;

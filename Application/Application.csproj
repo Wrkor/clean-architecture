@@ -13,6 +13,8 @@
     <ItemGroup>
         <Folder Include="Data\" />
         <Folder Include="Data\DatabaseContext\" />
+        <Folder Include="Dtos\" />
+        <Folder Include="Extensions\" />
         <Folder Include="Services\" />
     </ItemGroup>
 
