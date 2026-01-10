@@ -8,6 +8,14 @@ public static class DependencyInjection
         services.AddControllers();
         services.AddOpenApi();
 
+        services.AddCors(o =>
+        {
+            o.AddDefaultPolicy(p =>
+            {
+                p.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+            });
+        });
+
         return services;
     }
 
@@ -16,6 +24,7 @@ public static class DependencyInjection
         if (app.Environment.IsDevelopment())
             app.MapOpenApi();
 
+        app.UseCors();
         app.UseExceptionHandler(_ => { });
         app.UseHttpsRedirection();
         app.UseAuthorization();
