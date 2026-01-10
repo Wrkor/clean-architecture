@@ -65,6 +65,15 @@ public class TopicService(IApplicationDbContext dbContext, ILogger<TopicService>
 
     public async Task DeleteTopicAsync(Guid id, CancellationToken ct)
     {
-        throw new NotImplementedException();
+        var topicId = TopicId.Of(id);
+        var topic = await dbContext
+            .Topics.AsNoTracking()
+            .FirstOrDefaultAsync(t => t.Id == topicId, ct);
+
+        if (topic is null)
+            throw new TopicNotFoundException(id);
+
+        dbContext.Topics.Remove(topic);
+        await dbContext.SaveChangesAsync(ct);
     }
 }

@@ -25,7 +25,8 @@ namespace API.Controllers
         )
         {
             var result = await topicService.CreateTopicAsync(@object, ct);
-            return Ok(result);
+            var path = $"api/topics/{result.Id}";
+            return Created(path, result);
         }
 
         [HttpPut("topics/{id}")]
@@ -37,6 +38,13 @@ namespace API.Controllers
         {
             var result = await topicService.UpdateTopicAsync(id, @object, ct);
             return Ok(result);
+        }
+
+        [HttpDelete("topics/{id}")]
+        public async Task<ActionResult> DeleteAsync(Guid id, CancellationToken ct)
+        {
+            await topicService.DeleteTopicAsync(id, ct);
+            return NoContent();
         }
     }
 }
