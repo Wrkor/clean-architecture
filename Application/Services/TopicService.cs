@@ -22,12 +22,22 @@ public class TopicService(IApplicationDbContext dbContext, ILogger<TopicService>
         return result.ToTopicResponseDtoList();
     }
 
-    public async Task<TopicResponseDto> CreateTopicAsync(Topic topic, CancellationToken ct)
+    public async Task<TopicResponseDto> CreateTopicAsync(CreateTopicDto topic, CancellationToken ct)
     {
-        dbContext.Topics.Add(topic);
+        var topicId = TopicId.Of(Guid.NewGuid());
+        var location = Location.Of(topic.Location.City, topic.Location.Street);
+        var topicCreated = Topic.Create(
+            topicId,
+            topic.Title,
+            topic.Summary,
+            topic.TopicType,
+            topic.EventStartedAt,
+            location
+        );
+        dbContext.Topics.Add(topicCreated);
         await dbContext.SaveChangesAsync(ct);
 
-        return topic.ToTopicResponseDto();
+        return topicCreated.ToTopicResponseDto();
     }
 
     public async Task DeleteTopicAsync(Guid id, CancellationToken ct)
