@@ -11,6 +11,11 @@
     <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.3.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+    <Folder Include="Data\DatabaseContext\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
