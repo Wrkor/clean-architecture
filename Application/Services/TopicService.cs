@@ -3,15 +3,18 @@ namespace Application.Services;
 public class TopicService(IApplicationDbContext dbContext, ILogger<TopicService> logger)
     : ITopicService
 {
-    public async Task<Topic?> GetTopicAsync(TopicId id, CancellationToken ct)
+    public async Task<Topic?> GetTopicAsync(Guid id, CancellationToken ct)
     {
-        var result = await dbContext.Topics.AsNoTracking().FirstOrDefaultAsync(t => t.Id == id, ct);
+        var topicId = TopicId.Of(id);
+        var result = await dbContext
+            .Topics.AsNoTracking()
+            .FirstOrDefaultAsync(t => t.Id == topicId, ct);
         return result;
     }
 
     public async Task<List<Topic>> GetTopicsAsync(CancellationToken ct)
     {
-        var result = await dbContext.Topics.ToListAsync(ct);
+        var result = await dbContext.Topics.AsNoTracking().ToListAsync(ct);
         return result;
     }
 
@@ -23,12 +26,12 @@ public class TopicService(IApplicationDbContext dbContext, ILogger<TopicService>
         return topic;
     }
 
-    public async Task DeleteTopicAsync(TopicId id, CancellationToken ct)
+    public async Task DeleteTopicAsync(Guid id, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
 
-    public async Task<Topic> UpdateTopicAsync(TopicId id, Topic topic, CancellationToken ct)
+    public async Task<Topic> UpdateTopicAsync(Guid id, Topic topic, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
