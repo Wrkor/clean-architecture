@@ -40,12 +40,30 @@ public class TopicService(IApplicationDbContext dbContext, ILogger<TopicService>
         return topicCreated.ToTopicResponseDto();
     }
 
-    public async Task DeleteTopicAsync(Guid id, CancellationToken ct)
+    public async Task<TopicResponseDto> UpdateTopicAsync(
+        Guid id,
+        UpdateTopicDto topic,
+        CancellationToken ct
+    )
     {
-        throw new NotImplementedException();
+        var topicId = TopicId.Of(id);
+        var topicUpdated = await dbContext.Topics.FirstOrDefaultAsync(t => t.Id == topicId, ct);
+
+        if (topicUpdated is null)
+            throw new TopicNotFoundException(id);
+
+        topicUpdated.Title = topic.Title ?? topicUpdated.Title;
+        topicUpdated.Summary = topic.Summary ?? topicUpdated.Summary;
+        topicUpdated.TopicType = topic.TopicType ?? topicUpdated.TopicType;
+        topicUpdated.EventStartedAt = topic.EventStartedAt;
+        topicUpdated.Location = Location.Of(topic.Location.City, topic.Location.Street);
+
+        await dbContext.SaveChangesAsync(ct);
+
+        return topicUpdated.ToTopicResponseDto();
     }
 
-    public async Task<TopicResponseDto> UpdateTopicAsync(Guid id, Topic topic, CancellationToken ct)
+    public async Task DeleteTopicAsync(Guid id, CancellationToken ct)
     {
         throw new NotImplementedException();
     }
