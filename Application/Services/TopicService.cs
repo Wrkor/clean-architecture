@@ -9,7 +9,7 @@ public class TopicService(IApplicationDbContext dbContext) : ITopicService
             .Topics.AsNoTracking()
             .FirstOrDefaultAsync(t => t.Id == topicId, ct);
 
-        if (result is null)
+        if (result is null || result.IsDeleted)
             throw new TopicNotFoundException(id);
 
         return result.ToTopicResponseDto();
@@ -17,7 +17,7 @@ public class TopicService(IApplicationDbContext dbContext) : ITopicService
 
     public async Task<List<TopicResponseDto>> GetTopicsAsync(CancellationToken ct)
     {
-        var result = await dbContext.Topics.AsNoTracking().ToListAsync(ct);
+        var result = await dbContext.Topics.Where(t => !t.IsDeleted).AsNoTracking().ToListAsync(ct);
         return result.ToTopicResponseDtoList();
     }
 
@@ -48,7 +48,7 @@ public class TopicService(IApplicationDbContext dbContext) : ITopicService
         var topicId = TopicId.Of(id);
         var topicUpdated = await dbContext.Topics.FirstOrDefaultAsync(t => t.Id == topicId, ct);
 
-        if (topicUpdated is null)
+        if (topicUpdated is null || topicUpdated.IsDeleted)
             throw new TopicNotFoundException(id);
 
         topicUpdated.Title = topic.Title ?? topicUpdated.Title;
@@ -65,14 +65,14 @@ public class TopicService(IApplicationDbContext dbContext) : ITopicService
     public async Task DeleteTopicAsync(Guid id, CancellationToken ct)
     {
         var topicId = TopicId.Of(id);
-        var topic = await dbContext
-            .Topics.AsNoTracking()
-            .FirstOrDefaultAsync(t => t.Id == topicId, ct);
+        var topic = await dbContext.Topics.FirstOrDefaultAsync(t => t.Id == topicId, ct);
 
-        if (topic is null)
+        if (topic is null || topic.IsDeleted)
             throw new TopicNotFoundException(id);
 
-        dbContext.Topics.Remove(topic);
+        topic.IsDeleted = true;
+        topic.DeletedAt = DateTime.UtcNow;
+
         await dbContext.SaveChangesAsync(ct);
     }
 }
