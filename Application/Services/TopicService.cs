@@ -1,7 +1,6 @@
 namespace Application.Services;
 
-public class TopicService(IApplicationDbContext dbContext, ILogger<TopicService> logger)
-    : ITopicService
+public class TopicService(IApplicationDbContext dbContext) : ITopicService
 {
     public async Task<TopicResponseDto> GetTopicAsync(Guid id, CancellationToken ct)
     {
