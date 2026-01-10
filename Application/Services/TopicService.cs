@@ -1,17 +1,20 @@
-using Application.Extensions;
 
 namespace Application.Services;
 
 public class TopicService(IApplicationDbContext dbContext, ILogger<TopicService> logger)
     : ITopicService
 {
-    public async Task<TopicResponseDto?> GetTopicAsync(Guid id, CancellationToken ct)
+    public async Task<TopicResponseDto> GetTopicAsync(Guid id, CancellationToken ct)
     {
         var topicId = TopicId.Of(id);
         var result = await dbContext
             .Topics.AsNoTracking()
             .FirstOrDefaultAsync(t => t.Id == topicId, ct);
-        return result?.ToTopicResponseDto();
+
+        if (result is null)
+            throw new TopicNotFoundException(id);
+
+        return result.ToTopicResponseDto();
     }
 
     public async Task<List<TopicResponseDto>> GetTopicsAsync(CancellationToken ct)
