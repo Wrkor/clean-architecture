@@ -21,7 +21,7 @@ public class Topic : Entity<TopicId>
         ArgumentException.ThrowIfNullOrWhiteSpace(summary);
         ArgumentException.ThrowIfNullOrWhiteSpace(topicType);
 
-        var value = new Topic()
+        return new Topic()
         {
             Id = id,
             Title = title,
