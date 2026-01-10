@@ -39,7 +39,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Topics");
+                    b.ToTable("Topics", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Topic", b =>
@@ -61,7 +61,7 @@ namespace Infrastructure.Migrations
 
                             b1.HasKey("TopicId");
 
-                            b1.ToTable("Topics");
+                            b1.ToTable("Topics", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("TopicId");

@@ -1,9 +1,15 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
 namespace API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     [ApiController]
-    public class TopicsController : ControllerBase { }
+    public class TopicsController(ITopicService topicService) : ControllerBase
+    {
+        [HttpGet("topics")]
+        public async Task<ActionResult<List<Topic>>> GetTopicsAsync(CancellationToken ct)
+        {
+            var result = await topicService.GetTopicsAsync(ct);
+
+            return Ok(result);
+        }
+    }
 }

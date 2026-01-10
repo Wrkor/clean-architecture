@@ -1,2 +1,7 @@
+global using Application.Data.DatabaseContext;
+global using Application.Services;
 global using Domain.Entities;
+global using Domain.ValueObjects;
 global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;

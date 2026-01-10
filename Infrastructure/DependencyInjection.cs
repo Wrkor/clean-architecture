@@ -9,7 +9,9 @@ public static class DependencyInjection
     {
         var connectionString = configuration.GetConnectionString("DbConnection");
 
-        services.AddDbContext<ApplicationDbContext>(o => o.UseSqlite(connectionString));
+        services.AddDbContext<IApplicationDbContext, ApplicationDbContext>(o =>
+            o.UseSqlite(connectionString)
+        );
 
         return services;
     }
