@@ -1,6 +1,3 @@
-using Infrastructure.Data.DatabaseContext;
-using Microsoft.EntityFrameworkCore;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
@@ -14,6 +11,7 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    await app.InitializeDatabaseAsync();
 }
 
 app.UseHttpsRedirection();
