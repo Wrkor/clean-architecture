@@ -5,9 +5,18 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
-        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" />
-        <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.15.0" />
+        <PackageReference
+            Include="Mapster.DependencyInjection"
+            Version="1.0.1"
+        />
+        <PackageReference
+            Include="Microsoft.AspNetCore.Authentication.JwtBearer"
+            Version="10.0.1"
+        />
+        <PackageReference
+            Include="Microsoft.IdentityModel.JsonWebTokens"
+            Version="8.15.0"
+        />
     </ItemGroup>
 
     <ItemGroup>

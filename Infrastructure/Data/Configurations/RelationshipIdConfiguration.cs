@@ -1,6 +1,7 @@
 namespace Infrastructure.Data.Configurations;
 
-public class RelationshipsConfiguration : IEntityTypeConfiguration<Relationship>
+public class RelationshipIdConfiguration
+    : IEntityTypeConfiguration<Relationship>
 {
     public void Configure(EntityTypeBuilder<Relationship> builder)
     {
