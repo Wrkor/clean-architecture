@@ -1,9 +1,10 @@
+global using System.Reflection;
 global using Application.Data.DatabaseContext;
 global using Application.Dtos;
 global using Application.Exceptions;
 global using Application.Extensions;
-global using Application.Services;
 global using Domain.Entities;
 global using Domain.ValueObjects;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;
+global using Shared.CQRS;

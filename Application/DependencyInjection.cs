@@ -6,7 +6,9 @@ public static class DependencyInjection
         this IServiceCollection services
     )
     {
-        services.AddScoped<ITopicService, TopicService>();
+        services.AddMediatR(o =>
+            o.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())
+        );
 
         return services;
     }

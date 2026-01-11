@@ -1,6 +1,6 @@
 namespace Application.Services;
 
-public class TopicService(IApplicationDbContext dbContext) : ITopicService
+public class TopicService(IApplicationDbContext dbContext)
 {
     public async Task<TopicResponseDto> GetTopicAsync(
         Guid id,
@@ -16,17 +16,6 @@ public class TopicService(IApplicationDbContext dbContext) : ITopicService
             throw new TopicNotFoundException(id);
 
         return result.ToTopicResponseDto();
-    }
-
-    public async Task<List<TopicResponseDto>> GetTopicsAsync(
-        CancellationToken ct
-    )
-    {
-        var result = await dbContext
-            .Topics.Where(t => !t.IsDeleted)
-            .AsNoTracking()
-            .ToListAsync(ct);
-        return result.ToTopicResponseDtoList();
     }
 
     public async Task<TopicResponseDto> CreateTopicAsync(
