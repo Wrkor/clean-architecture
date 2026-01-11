@@ -15,6 +15,8 @@ public static class DependencyInjection
             o.UseSqlite(connectionString)
         );
 
+        services.AddScoped<IJwtService, JwtService>();
+
         return services;
     }
 }

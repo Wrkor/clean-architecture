@@ -1,12 +1,17 @@
 global using System.Reflection;
 global using Application.Data.DatabaseContext;
 global using Application.Exceptions;
+global using Application.Security.Exceptions;
+global using Application.Services;
 global using Application.Topics.Dtos;
 global using Application.Topics.Exceptions;
 global using Domain.Entities;
+global using Domain.Security;
+global using Domain.Security.Dtos;
 global using Domain.ValueObjects;
 global using Mapster;
 global using MapsterMapper;
+global using Microsoft.AspNetCore.Identity;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.DependencyInjection;
 global using Shared.CQRS;

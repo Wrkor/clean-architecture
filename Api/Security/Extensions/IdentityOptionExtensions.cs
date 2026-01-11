@@ -38,8 +38,6 @@ public static class IdentityOptionExtensions
                 };
             });
 
-        services.AddScoped<IJwtService, JwtService>();
-
         return services;
     }
 }

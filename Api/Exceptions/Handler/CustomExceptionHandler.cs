@@ -17,6 +17,12 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger)
 
         (string Detail, string Title, int StatusCode) details = exception switch
         {
+            BadRequestException => (
+                exception.Message,
+                exception.GetType().Name,
+                httpContext.Response.StatusCode =
+                    StatusCodes.Status400BadRequest
+            ),
             NotFoundException => (
                 exception.Message,
                 exception.GetType().Name,

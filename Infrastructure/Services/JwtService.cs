@@ -1,8 +1,8 @@
-namespace Api.Security.Services;
+namespace Infrastructure.Services;
 
 public class JwtService(IConfiguration config) : IJwtService
 {
-    public string CreateToken(CustomIdentityUser user)
+    public string CreateToken(string id, string userName, string email)
     {
         var secretKey = config.GetValue<string>("Auth:SecretKey")!;
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
@@ -12,9 +12,9 @@ public class JwtService(IConfiguration config) : IJwtService
         );
         var claims = new List<Claim>
         {
-            new("SUB", user.Id),
-            new("NAME", user.UserName!),
-            new("EMAIL", user.Email!),
+            new("SUB", id),
+            new("NAME", userName),
+            new("EMAIL", email),
         };
         var identity = new ClaimsIdentity(claims);
         var descriptor = new SecurityTokenDescriptor()

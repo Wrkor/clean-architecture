@@ -5,24 +5,16 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference
-            Include="Mapster.DependencyInjection"
-            Version="1.0.1"
-        />
-        <PackageReference
-            Include="Microsoft.AspNetCore.Authentication.JwtBearer"
-            Version="10.0.1"
-        />
-        <PackageReference
-            Include="Microsoft.IdentityModel.JsonWebTokens"
-            Version="8.15.0"
-        />
+        <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="10.0.1" />
+        <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.15.0" />
     </ItemGroup>
 
     <ItemGroup>
         <Folder Include="Data\" />
         <Folder Include="Data\DatabaseContext\" />
-        <Folder Include="Services\" />
+        <Folder Include="Security\Commands\" />
+        <Folder Include="Security\Exceptions\" />
         <Folder Include="Topics\Commands\" />
         <Folder Include="Topics\Commands\CreateTopic\" />
         <Folder Include="Topics\Mapping\" />
