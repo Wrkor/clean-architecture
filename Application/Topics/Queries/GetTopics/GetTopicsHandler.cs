@@ -1,9 +1,9 @@
 namespace Application.Topics.Queries.GetTopics;
 
 public class GetTopicsHandler(IApplicationDbContext dbContext)
-    : IQueryHandler<GetTopicsQuery, GetTopicResult>
+    : IQueryHandler<GetTopicsQuery, GetTopicsResult>
 {
-    public async Task<GetTopicResult> Handle(
+    public async Task<GetTopicsResult> Handle(
         GetTopicsQuery request,
         CancellationToken ct
     )
@@ -13,6 +13,6 @@ public class GetTopicsHandler(IApplicationDbContext dbContext)
             .AsNoTracking()
             .ToListAsync(ct);
 
-        return new GetTopicResult(result.ToTopicResponseDtoList());
+        return new GetTopicsResult(result.ToTopicResponseDtoList());
     }
 }

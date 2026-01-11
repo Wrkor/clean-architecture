@@ -1,5 +1,5 @@
 namespace Application.Topics.Queries.GetTopics;
 
-public record GetTopicsQuery : IQuery<GetTopicResult>;
+public record GetTopicsQuery : IQuery<GetTopicsResult>;
 
-public record GetTopicResult(List<TopicResponseDto> Objects);
+public record GetTopicsResult(List<TopicResponseDto> Objects);

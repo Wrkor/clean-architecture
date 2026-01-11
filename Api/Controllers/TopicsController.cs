@@ -1,3 +1,4 @@
+using Application.Topics.Queries.GetTopicById;
 using Application.Topics.Queries.GetTopics;
 
 namespace API.Controllers
@@ -17,7 +18,9 @@ namespace API.Controllers
         [HttpGet("topics/{id}")]
         public async Task<IResult> GetTopicAsync(Guid id, CancellationToken ct)
         {
-            return Results.Ok();
+            var query = new GetTopicByIdQuery(id);
+            var result = await mediator.Send(query, ct);
+            return Results.Ok(result);
         }
 
         [HttpPost("topics")]
