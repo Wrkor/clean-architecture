@@ -8,4 +8,5 @@ public record TopicResponseDto
     public string TopicType { get; set; } = default!;
     public DateTime? EventStartedAt { get; set; } = default!;
     public LocationDto Location { get; set; } = default!;
+    public List<Relationship> Users { get; set; } = default!;
 }

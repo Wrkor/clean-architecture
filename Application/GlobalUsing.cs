@@ -7,6 +7,7 @@ global using Application.Identity.Services;
 global using Application.Topics.Dtos;
 global using Application.Topics.Exceptions;
 global using Domain.Entities;
+global using Domain.Enums;
 global using Domain.Identity;
 global using Domain.ValueObjects;
 global using Mapster;
