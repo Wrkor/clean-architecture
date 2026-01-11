@@ -2,6 +2,7 @@ namespace Domain.Entities;
 
 public class Topic : Entity<TopicId>
 {
+    public bool IsVoided { get; set; } = default!;
     public string Title { get; set; } = default!;
     public string Summary { get; set; } = default!;
     public string TopicType { get; set; } = default!;

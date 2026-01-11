@@ -17,6 +17,11 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger)
 
         (string Detail, string Title, int StatusCode) details = exception switch
         {
+            ForbiddenException => (
+                exception.Message,
+                exception.GetType().Name,
+                httpContext.Response.StatusCode = StatusCodes.Status403Forbidden
+            ),
             BadRequestException => (
                 exception.Message,
                 exception.GetType().Name,
