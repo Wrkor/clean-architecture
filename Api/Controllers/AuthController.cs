@@ -1,5 +1,6 @@
 namespace Api.Controllers;
 
+[AllowAnonymous]
 [Route("api/auth")]
 [ApiController]
 public class AuthController(

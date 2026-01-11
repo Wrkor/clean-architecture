@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Mvc.Authorization;
+
 namespace Api;
 
 public static class DependencyInjection
@@ -8,7 +10,14 @@ public static class DependencyInjection
     )
     {
         services.AddExceptionHandler<CustomExceptionHandler>();
-        services.AddControllers();
+        services.AddControllers(o =>
+        {
+            var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+            var filter = new AuthorizeFilter(policy);
+            o.Filters.Add(filter);
+        });
         services.AddOpenApi();
 
         services.AddCors(o =>
