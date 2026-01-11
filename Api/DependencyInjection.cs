@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Mvc.Authorization;
-
 namespace Api;
 
 public static class DependencyInjection

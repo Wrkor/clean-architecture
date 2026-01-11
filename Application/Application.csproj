@@ -13,7 +13,6 @@
     <ItemGroup>
         <Folder Include="Data\" />
         <Folder Include="Data\DatabaseContext\" />
-        <Folder Include="Security\Commands\" />
         <Folder Include="Security\Exceptions\" />
         <Folder Include="Topics\Commands\" />
         <Folder Include="Topics\Commands\CreateTopic\" />
