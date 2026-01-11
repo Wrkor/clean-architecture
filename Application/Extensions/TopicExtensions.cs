@@ -4,7 +4,10 @@ public static class TopicExtensions
 {
     public static TopicResponseDto ToTopicResponseDto(this Topic topic)
     {
-        var location = new LocationDto(topic.Location.City, topic.Location.Street);
+        var location = new LocationDto(
+            topic.Location.City,
+            topic.Location.Street
+        );
         var result = new TopicResponseDto(
             topic.Id.Value,
             topic.Title,
@@ -17,7 +20,9 @@ public static class TopicExtensions
         return result;
     }
 
-    public static List<TopicResponseDto> ToTopicResponseDtoList(this List<Topic> topics)
+    public static List<TopicResponseDto> ToTopicResponseDtoList(
+        this List<Topic> topics
+    )
     {
         return topics.Select(t => t.ToTopicResponseDto()).ToList();
     }

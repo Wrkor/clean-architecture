@@ -1,6 +1,7 @@
 namespace Api.Exceptions.Handler;
 
-public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IExceptionHandler
+public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger)
+    : IExceptionHandler
 {
     public async ValueTask<bool> TryHandleAsync(
         HttpContext httpContext,
@@ -24,7 +25,8 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger) : IE
             _ => (
                 exception.Message,
                 exception.GetType().Name,
-                httpContext.Response.StatusCode = StatusCodes.Status500InternalServerError
+                httpContext.Response.StatusCode =
+                    StatusCodes.Status500InternalServerError
             ),
         };
 

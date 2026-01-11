@@ -2,7 +2,9 @@ namespace Api;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApiServices(this IServiceCollection services)
+    public static IServiceCollection AddApiServices(
+        this IServiceCollection services
+    )
     {
         services.AddExceptionHandler<CustomExceptionHandler>();
         services.AddControllers();
@@ -12,7 +14,9 @@ public static class DependencyInjection
         {
             o.AddDefaultPolicy(p =>
             {
-                p.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                p.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .WithOrigins("http://localhost:3000");
             });
         });
 

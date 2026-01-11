@@ -2,7 +2,10 @@ namespace Application.Services;
 
 public class TopicService(IApplicationDbContext dbContext) : ITopicService
 {
-    public async Task<TopicResponseDto> GetTopicAsync(Guid id, CancellationToken ct)
+    public async Task<TopicResponseDto> GetTopicAsync(
+        Guid id,
+        CancellationToken ct
+    )
     {
         var topicId = TopicId.Of(id);
         var result = await dbContext
@@ -15,13 +18,21 @@ public class TopicService(IApplicationDbContext dbContext) : ITopicService
         return result.ToTopicResponseDto();
     }
 
-    public async Task<List<TopicResponseDto>> GetTopicsAsync(CancellationToken ct)
+    public async Task<List<TopicResponseDto>> GetTopicsAsync(
+        CancellationToken ct
+    )
     {
-        var result = await dbContext.Topics.Where(t => !t.IsDeleted).AsNoTracking().ToListAsync(ct);
+        var result = await dbContext
+            .Topics.Where(t => !t.IsDeleted)
+            .AsNoTracking()
+            .ToListAsync(ct);
         return result.ToTopicResponseDtoList();
     }
 
-    public async Task<TopicResponseDto> CreateTopicAsync(CreateTopicDto topic, CancellationToken ct)
+    public async Task<TopicResponseDto> CreateTopicAsync(
+        CreateTopicDto topic,
+        CancellationToken ct
+    )
     {
         var topicId = TopicId.Of(Guid.NewGuid());
         var location = Location.Of(topic.Location.City, topic.Location.Street);
@@ -46,7 +57,10 @@ public class TopicService(IApplicationDbContext dbContext) : ITopicService
     )
     {
         var topicId = TopicId.Of(id);
-        var topicUpdated = await dbContext.Topics.FirstOrDefaultAsync(t => t.Id == topicId, ct);
+        var topicUpdated = await dbContext.Topics.FirstOrDefaultAsync(
+            t => t.Id == topicId,
+            ct
+        );
 
         if (topicUpdated is null || topicUpdated.IsDeleted)
             throw new TopicNotFoundException(id);
@@ -55,7 +69,10 @@ public class TopicService(IApplicationDbContext dbContext) : ITopicService
         topicUpdated.Summary = topic.Summary ?? topicUpdated.Summary;
         topicUpdated.TopicType = topic.TopicType ?? topicUpdated.TopicType;
         topicUpdated.EventStartedAt = topic.EventStartedAt;
-        topicUpdated.Location = Location.Of(topic.Location.City, topic.Location.Street);
+        topicUpdated.Location = Location.Of(
+            topic.Location.City,
+            topic.Location.Street
+        );
 
         await dbContext.SaveChangesAsync(ct);
 
@@ -65,7 +82,10 @@ public class TopicService(IApplicationDbContext dbContext) : ITopicService
     public async Task DeleteTopicAsync(Guid id, CancellationToken ct)
     {
         var topicId = TopicId.Of(id);
-        var topic = await dbContext.Topics.FirstOrDefaultAsync(t => t.Id == topicId, ct);
+        var topic = await dbContext.Topics.FirstOrDefaultAsync(
+            t => t.Id == topicId,
+            ct
+        );
 
         if (topic is null || topic.IsDeleted)
             throw new TopicNotFoundException(id);

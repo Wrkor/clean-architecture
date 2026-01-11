@@ -12,7 +12,9 @@ public record TopicId
     public static TopicId Of(Guid value)
     {
         if (value == Guid.Empty)
-            throw new DomainException($"{nameof(TopicId)} не может быть пустым");
+            throw new DomainException(
+                $"{nameof(TopicId)} не может быть пустым"
+            );
 
         return new TopicId(value);
     }

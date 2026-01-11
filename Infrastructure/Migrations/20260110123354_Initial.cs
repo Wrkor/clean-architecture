@@ -17,23 +17,35 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
-                    Summary = table.Column<string>(type: "TEXT", nullable: false),
-                    TopicType = table.Column<string>(type: "TEXT", nullable: false),
-                    EventStartedAt = table.Column<DateTime>(type: "TEXT", nullable: true),
+                    Summary = table.Column<string>(
+                        type: "TEXT",
+                        nullable: false
+                    ),
+                    TopicType = table.Column<string>(
+                        type: "TEXT",
+                        nullable: false
+                    ),
+                    EventStartedAt = table.Column<DateTime>(
+                        type: "TEXT",
+                        nullable: true
+                    ),
                     City = table.Column<string>(type: "TEXT", nullable: false),
-                    Street = table.Column<string>(type: "TEXT", nullable: false)
+                    Street = table.Column<string>(
+                        type: "TEXT",
+                        nullable: false
+                    ),
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Topics", x => x.Id);
-                });
+                }
+            );
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "Topics");
+            migrationBuilder.DropTable(name: "Topics");
         }
     }
 }
