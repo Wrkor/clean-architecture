@@ -33,4 +33,11 @@ public class Topic : Entity<TopicId>
             Location = location,
         };
     }
+
+    public bool ToggleStatus()
+    {
+        IsVoided = !IsVoided;
+
+        return IsVoided;
+    }
 }
