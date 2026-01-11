@@ -1,6 +1,7 @@
 global using Api;
 global using Api.Exceptions.Handler;
 global using Api.Security.Extensions;
+global using Api.Security.Services;
 global using Application;
 global using Application.Exceptions;
 global using Application.Topics.Commands.CreateTopic;

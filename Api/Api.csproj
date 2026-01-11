@@ -21,7 +21,6 @@
     <ItemGroup>
         <Folder Include="Exceptions\" />
         <Folder Include="Exceptions\Handler\" />
-        <Folder Include="Security\" />
         <Folder Include="Security\Extensions\" />
     </ItemGroup>
 </Project>

@@ -2,8 +2,10 @@ namespace Api.Controllers
 {
     [Route("api/auth")]
     [ApiController]
-    public class AuthController(UserManager<CustomIdentityUser> manager)
-        : ControllerBase
+    public class AuthController(
+        UserManager<CustomIdentityUser> manager,
+        IJwtService jwtService
+    ) : ControllerBase
     {
         [HttpPost("login")]
         public async Task<IResult> Login(LoginRequestDto @object)
@@ -20,10 +22,11 @@ namespace Api.Controllers
             if (!isVerify)
                 return Results.Unauthorized();
 
+            var token = jwtService.CreateToken(user);
             var result = new IdentityUserResponseDto(
                 user.UserName!,
                 user.Email!,
-                "jwt"
+                token
             );
             return Results.Ok(new { @object = result });
         }
