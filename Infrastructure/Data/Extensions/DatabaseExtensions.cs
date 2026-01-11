@@ -7,14 +7,32 @@ public static class DatabaseExtensions
         using var scope = app.Services.CreateScope();
         var dbContext =
             scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
+        var manager = scope.ServiceProvider.GetRequiredService<
+            UserManager<CustomIdentityUser>
+        >();
         await dbContext.Database.MigrateAsync();
-        await SeedData(dbContext);
+        await SeedData(dbContext, manager);
     }
 
-    private static async Task SeedData(ApplicationDbContext dbContext)
+    private static async Task SeedData(
+        ApplicationDbContext dbContext,
+        UserManager<CustomIdentityUser> manager
+    )
     {
         await SeedTopicsAsync(dbContext);
+        await SeedIdentityUsersAsync(dbContext, manager);
+    }
+
+    private static async Task SeedIdentityUsersAsync(
+        ApplicationDbContext dbContext,
+        UserManager<CustomIdentityUser> manager
+    )
+    {
+        if (!await dbContext.Users.AnyAsync())
+        {
+            foreach (var user in InitialData.CustomIdentityUsers)
+                await manager.CreateAsync(user, "111");
+        }
     }
 
     private static async Task SeedTopicsAsync(ApplicationDbContext dbContext)
