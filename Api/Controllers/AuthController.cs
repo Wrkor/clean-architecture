@@ -51,6 +51,7 @@ public class AuthController(
             return Results.BadRequest(identityResult.Errors);
 
         var token = jwtService.CreateToken(user.Id, user.UserName, user.Email);
+
         var result = new IdentityUserResponseDto(
             user.UserName,
             user.Email,
