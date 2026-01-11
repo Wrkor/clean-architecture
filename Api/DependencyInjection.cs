@@ -20,6 +20,8 @@ public static class DependencyInjection
             });
         });
 
+        services.AddIdentityServices();
+
         return services;
     }
 

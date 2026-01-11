@@ -1,5 +1,6 @@
 global using Api;
 global using Api.Exceptions.Handler;
+global using Api.Security.Extensions;
 global using Application;
 global using Application.Exceptions;
 global using Application.Topics.Commands.CreateTopic;
@@ -8,7 +9,9 @@ global using Application.Topics.Commands.UpdateTopic;
 global using Application.Topics.Dtos;
 global using Application.Topics.Queries.GetTopicById;
 global using Application.Topics.Queries.GetTopics;
+global using Domain.Security;
 global using Infrastructure;
+global using Infrastructure.Data.DatabaseContext;
 global using Infrastructure.Data.Extensions;
 global using MediatR;
 global using Microsoft.AspNetCore.Diagnostics;
