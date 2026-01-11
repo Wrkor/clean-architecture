@@ -2,27 +2,6 @@ namespace Application.Services;
 
 public class TopicService(IApplicationDbContext dbContext)
 {
-    public async Task<TopicResponseDto> CreateTopicAsync(
-        CreateTopicDto topic,
-        CancellationToken ct
-    )
-    {
-        var topicId = TopicId.Of(Guid.NewGuid());
-        var location = Location.Of(topic.Location.City, topic.Location.Street);
-        var topicCreated = Topic.Create(
-            topicId,
-            topic.Title,
-            topic.Summary,
-            topic.TopicType,
-            topic.EventStartedAt,
-            location
-        );
-        dbContext.Topics.Add(topicCreated);
-        await dbContext.SaveChangesAsync(ct);
-
-        return topicCreated.ToTopicResponseDto();
-    }
-
     public async Task<TopicResponseDto> UpdateTopicAsync(
         Guid id,
         UpdateTopicDto topic,

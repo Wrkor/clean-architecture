@@ -1,3 +1,4 @@
+using Application.Topics.Commands.CreateTopic;
 using Application.Topics.Queries.GetTopicById;
 using Application.Topics.Queries.GetTopics;
 
@@ -29,7 +30,10 @@ namespace API.Controllers
             CancellationToken ct
         )
         {
-            return Results.Created();
+            var command = new CreateTopicCommand(@object);
+            var result = await mediator.Send(command, ct);
+            var path = $"api/topics/{result.Object.Id}";
+            return Results.Created(path, result);
         }
 
         [HttpPut("topics/{id}")]

@@ -17,6 +17,8 @@
         <Folder Include="Exceptions\" />
         <Folder Include="Extensions\" />
         <Folder Include="Services\" />
+        <Folder Include="Topics\Commands\" />
+        <Folder Include="Topics\Commands\CreateTopic\" />
     </ItemGroup>
 
     <PropertyGroup>
