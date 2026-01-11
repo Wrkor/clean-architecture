@@ -5,6 +5,7 @@ public class ApplicationDbContext(DbContextOptions options)
         IApplicationDbContext
 {
     public DbSet<Topic> Topics => Set<Topic>();
+    public DbSet<Relationship> Relationships => Set<Relationship>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
