@@ -1,3 +1,5 @@
+global using System.Security.Claims;
+global using System.Text;
 global using Api;
 global using Api.Exceptions.Handler;
 global using Api.Security.Extensions;
@@ -19,3 +21,5 @@ global using MediatR;
 global using Microsoft.AspNetCore.Diagnostics;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.IdentityModel.JsonWebTokens;
+global using Microsoft.IdentityModel.Tokens;
