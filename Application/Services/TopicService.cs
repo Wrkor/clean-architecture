@@ -30,21 +30,4 @@ public class TopicService(IApplicationDbContext dbContext)
 
         return topicUpdated.ToTopicResponseDto();
     }
-
-    public async Task DeleteTopicAsync(Guid id, CancellationToken ct)
-    {
-        var topicId = TopicId.Of(id);
-        var topic = await dbContext.Topics.FirstOrDefaultAsync(
-            t => t.Id == topicId,
-            ct
-        );
-
-        if (topic is null || topic.IsDeleted)
-            throw new TopicNotFoundException(id);
-
-        topic.IsDeleted = true;
-        topic.DeletedAt = DateTime.UtcNow;
-
-        await dbContext.SaveChangesAsync(ct);
-    }
 }

@@ -1,4 +1,5 @@
 using Application.Topics.Commands.CreateTopic;
+using Application.Topics.Commands.DeleteTopic;
 using Application.Topics.Queries.GetTopicById;
 using Application.Topics.Queries.GetTopics;
 
@@ -49,6 +50,8 @@ namespace API.Controllers
         [HttpDelete("topics/{id}")]
         public async Task<IResult> DeleteAsync(Guid id, CancellationToken ct)
         {
+            var command = new DeleteTopicCommand(id);
+            await mediator.Send(command, ct);
             return Results.NoContent();
         }
     }
