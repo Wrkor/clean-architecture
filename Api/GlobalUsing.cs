@@ -4,6 +4,7 @@ global using Api.Exceptions.Handler;
 global using Api.Security.Extensions;
 global using Application;
 global using Application.Exceptions;
+global using Application.Security.Queries.LoginUser;
 global using Application.Services;
 global using Application.Topics.Commands.CreateTopic;
 global using Application.Topics.Commands.DeleteTopic;

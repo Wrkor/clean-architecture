@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-
 namespace Api.Controllers;
 
 [AllowAnonymous]
@@ -7,28 +5,19 @@ namespace Api.Controllers;
 [ApiController]
 public class AuthController(
     UserManager<CustomIdentityUser> manager,
-    IJwtService jwtService
+    IJwtService jwtService,
+    IMediator mediator
 ) : ControllerBase
 {
     [HttpPost("login")]
-    public async Task<IResult> LoginAsync(LoginRequestDto @object)
+    public async Task<IResult> LoginAsync(
+        LoginRequestDto @object,
+        CancellationToken ct
+    )
     {
-        var user = await manager.FindByEmailAsync(@object.Email);
-        if (user is null)
-            return Results.Unauthorized();
-
-        var isVerify = await manager.CheckPasswordAsync(user, @object.Password);
-
-        if (!isVerify)
-            return Results.Unauthorized();
-
-        var token = jwtService.CreateToken(user);
-        var result = new IdentityUserResponseDto(
-            user.UserName!,
-            user.Email!,
-            token
-        );
-        return Results.Ok(new { @object = result });
+        var query = new LoginUserQuery(@object);
+        var result = await mediator.Send(query, ct);
+        return Results.Ok(result);
     }
 
     [HttpPost("register")]
@@ -61,7 +50,7 @@ public class AuthController(
         if (!identityResult.Succeeded)
             return Results.BadRequest(identityResult.Errors);
 
-        var token = jwtService.CreateToken(user);
+        var token = jwtService.CreateToken(user.Id, user.UserName, user.Email);
         var result = new IdentityUserResponseDto(
             user.UserName,
             user.Email,
