@@ -7,50 +7,42 @@ namespace API.Controllers
     public class TopicsController(IMediator mediator) : ControllerBase
     {
         [HttpGet("topics")]
-        public async Task<ActionResult<List<TopicResponseDto>>> GetTopicsAsync(
-            CancellationToken ct
-        )
+        public async Task<IResult> GetTopicsAsync(CancellationToken ct)
         {
             var query = new GetTopicsQuery();
             var result = await mediator.Send(query, ct);
-            return Ok(result);
+            return Results.Ok(result);
         }
 
         [HttpGet("topics/{id}")]
-        public async Task<ActionResult<string>> GetTopicAsync(
-            Guid id,
-            CancellationToken ct
-        )
+        public async Task<IResult> GetTopicAsync(Guid id, CancellationToken ct)
         {
-            return Ok();
+            return Results.Ok();
         }
 
         [HttpPost("topics")]
-        public async Task<ActionResult<TopicResponseDto>> CreateTopicAsync(
+        public async Task<IResult> CreateTopicAsync(
             CreateTopicDto @object,
             CancellationToken ct
         )
         {
-            return Created();
+            return Results.Created();
         }
 
         [HttpPut("topics/{id}")]
-        public async Task<ActionResult<TopicResponseDto>> UpdateTopicAsync(
+        public async Task<IResult> UpdateTopicAsync(
             Guid id,
             UpdateTopicDto @object,
             CancellationToken ct
         )
         {
-            return Ok();
+            return Results.Ok();
         }
 
         [HttpDelete("topics/{id}")]
-        public async Task<ActionResult> DeleteAsync(
-            Guid id,
-            CancellationToken ct
-        )
+        public async Task<IResult> DeleteAsync(Guid id, CancellationToken ct)
         {
-            return NoContent();
+            return Results.NoContent();
         }
     }
 }
