@@ -1,7 +1,4 @@
-using Application.Topics.Commands.CreateTopic;
-using Application.Topics.Commands.DeleteTopic;
-using Application.Topics.Queries.GetTopicById;
-using Application.Topics.Queries.GetTopics;
+using Application.Topics.Commands.UpdateTopic;
 
 namespace API.Controllers
 {
@@ -44,7 +41,9 @@ namespace API.Controllers
             CancellationToken ct
         )
         {
-            return Results.Ok();
+            var command = new UpdateTopicCommand(id, @object);
+            var result = await mediator.Send(command, ct);
+            return Results.Ok(result);
         }
 
         [HttpDelete("topics/{id}")]
