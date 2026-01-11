@@ -13,6 +13,8 @@
     <ItemGroup>
         <Folder Include="Data\" />
         <Folder Include="Data\DatabaseContext\" />
+        <Folder Include="Relationships\" />
+        <Folder Include="Relationships\Dtos\" />
         <Folder Include="Topics\Commands\" />
         <Folder Include="Topics\Commands\CreateTopic\" />
         <Folder Include="Topics\Mapping\" />

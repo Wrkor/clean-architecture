@@ -18,6 +18,4 @@ public record RelationshipId
 
         return new RelationshipId(value);
     }
-
-    public static implicit operator Guid(RelationshipId id) => id.Value;
 }

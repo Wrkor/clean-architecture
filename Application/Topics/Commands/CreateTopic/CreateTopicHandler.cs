@@ -12,9 +12,10 @@ public class CreateTopicHandler(
     )
     {
         var username = userAccessor.GetUsername();
-        var user = await dbContext
-            .Users.AsNoTracking()
-            .FirstOrDefaultAsync(u => u.UserName == username, ct);
+        var user = await dbContext.Users.FirstOrDefaultAsync(
+            u => u.UserName == username,
+            ct
+        );
 
         if (user is null)
             throw new UserNameNotFoundException(username);
@@ -26,8 +27,8 @@ public class CreateTopicHandler(
             role: ParticipantRole.Organizer,
             userId: user.Id,
             topicId: topic.Id,
-            topic: topic,
-            user: user
+            user: user,
+            topic: topic
         );
         topic.Users.Add(relationship);
         dbContext.Topics.Add(topic);

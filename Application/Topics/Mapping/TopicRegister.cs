@@ -4,6 +4,8 @@ public class TopicRegister : IRegister
 {
     public void Register(TypeAdapterConfig config)
     {
+        config.NewConfig<TopicId, Guid>().MapWith(src => src.Value);
+        config.NewConfig<Guid, TopicId>().MapWith(src => TopicId.Of(src));
         config
             .NewConfig<CreateTopicDto, Topic>()
             .MapWith(src =>

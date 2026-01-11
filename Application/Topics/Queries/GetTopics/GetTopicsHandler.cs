@@ -1,6 +1,6 @@
 namespace Application.Topics.Queries.GetTopics;
 
-public class GetTopicsHandler(IApplicationDbContext dbContext)
+public class GetTopicsHandler(IApplicationDbContext dbContext, IMapper mapper)
     : IQueryHandler<GetTopicsQuery, GetTopicsResult>
 {
     public async Task<GetTopicsResult> Handle(
@@ -11,7 +11,7 @@ public class GetTopicsHandler(IApplicationDbContext dbContext)
         var result = await dbContext
             .Topics.Where(t => !t.IsDeleted)
             .AsNoTracking()
-            .ProjectToType<TopicResponseDto>()
+            .ProjectToType<TopicResponseDto>(mapper.Config)
             .ToListAsync(ct);
 
         return new GetTopicsResult(result);

@@ -1,7 +1,9 @@
 namespace Application.Topics.Queries.GetTopicById;
 
-public class GetTopicByIdHandler(IApplicationDbContext dbContext)
-    : IQueryHandler<GetTopicByIdQuery, GetTopicByIdResult>
+public class GetTopicByIdHandler(
+    IApplicationDbContext dbContext,
+    IMapper mapper
+) : IQueryHandler<GetTopicByIdQuery, GetTopicByIdResult>
 {
     public async Task<GetTopicByIdResult> Handle(
         GetTopicByIdQuery request,
@@ -12,7 +14,7 @@ public class GetTopicByIdHandler(IApplicationDbContext dbContext)
         var result = await dbContext
             .Topics.Where(t => t.Id == topicId && !t.IsDeleted)
             .AsNoTracking()
-            .ProjectToType<TopicResponseDto>()
+            .ProjectToType<TopicResponseDto>(mapper.Config)
             .FirstOrDefaultAsync(ct);
 
         if (result is null)
