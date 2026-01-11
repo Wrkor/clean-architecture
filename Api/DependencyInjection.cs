@@ -16,6 +16,7 @@ public static class DependencyInjection
             var filter = new AuthorizeFilter(policy);
             o.Filters.Add(filter);
         });
+        services.AddHttpContextAccessor();
         services.AddCors(config);
         services.AddSwagger();
         services.AddIdentityServices(config);
@@ -47,7 +48,6 @@ public static class DependencyInjection
     {
         services.AddOpenApi();
         services.AddEndpointsApiExplorer();
-        services.AddHttpContextAccessor();
         services.AddSwaggerGen(o =>
         {
             o.DocumentFilter<DescriptionFilter>();

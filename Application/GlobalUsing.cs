@@ -3,7 +3,7 @@ global using Application.Data.DatabaseContext;
 global using Application.Exceptions;
 global using Application.Identity.Dtos;
 global using Application.Identity.Exceptions;
-global using Application.Services;
+global using Application.Identity.Services;
 global using Application.Topics.Dtos;
 global using Application.Topics.Exceptions;
 global using Domain.Entities;

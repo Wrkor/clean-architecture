@@ -1,4 +1,4 @@
-namespace Application.Services;
+namespace Application.Identity.Services;
 
 public interface IJwtService
 {

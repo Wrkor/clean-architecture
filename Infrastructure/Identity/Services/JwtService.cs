@@ -1,4 +1,4 @@
-namespace Infrastructure.Services;
+namespace Infrastructure.Identity.Services;
 
 public class JwtService(IConfiguration config) : IJwtService
 {
