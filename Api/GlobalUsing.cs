@@ -18,6 +18,7 @@ global using Infrastructure;
 global using Infrastructure.Data.DatabaseContext;
 global using Infrastructure.Data.Extensions;
 global using MediatR;
+global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Diagnostics;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Mvc;

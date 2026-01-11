@@ -3,7 +3,8 @@ namespace Api;
 public static class DependencyInjection
 {
     public static IServiceCollection AddApiServices(
-        this IServiceCollection services
+        this IServiceCollection services,
+        IConfiguration config
     )
     {
         services.AddExceptionHandler<CustomExceptionHandler>();
@@ -20,7 +21,7 @@ public static class DependencyInjection
             });
         });
 
-        services.AddIdentityServices();
+        services.AddIdentityServices(config);
 
         return services;
     }
@@ -33,6 +34,7 @@ public static class DependencyInjection
         app.UseCors();
         app.UseExceptionHandler(_ => { });
         app.UseHttpsRedirection();
+        app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
 

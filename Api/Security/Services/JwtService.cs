@@ -22,7 +22,7 @@ public class JwtService(IConfiguration config) : IJwtService
             SigningCredentials = creds,
             Subject = identity,
             IssuedAt = DateTime.UtcNow,
-            Expires = DateTime.UtcNow.AddMinutes(1),
+            Expires = DateTime.UtcNow.AddMinutes(10),
         };
         var handler = new JsonWebTokenHandler();
         var token = handler.CreateToken(descriptor);
