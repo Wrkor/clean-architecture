@@ -1,4 +1,4 @@
-namespace Domain.Security.Dtos;
+namespace Application.Identity.Dtos;
 
 public record IdentityUserResponseDto(
     string Username,

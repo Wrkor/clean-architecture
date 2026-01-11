@@ -4,7 +4,7 @@ global using System.Text;
 global using Application.Data.DatabaseContext;
 global using Application.Services;
 global using Domain.Entities;
-global using Domain.Security;
+global using Domain.Identity;
 global using Domain.ValueObjects;
 global using Infrastructure.Data.DatabaseContext;
 global using Infrastructure.Services;

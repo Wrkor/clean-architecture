@@ -1,13 +1,13 @@
 global using System.Reflection;
 global using Application.Data.DatabaseContext;
 global using Application.Exceptions;
-global using Application.Security.Exceptions;
+global using Application.Identity.Dtos;
+global using Application.Identity.Exceptions;
 global using Application.Services;
 global using Application.Topics.Dtos;
 global using Application.Topics.Exceptions;
 global using Domain.Entities;
-global using Domain.Security;
-global using Domain.Security.Dtos;
+global using Domain.Identity;
 global using Domain.ValueObjects;
 global using Mapster;
 global using MapsterMapper;

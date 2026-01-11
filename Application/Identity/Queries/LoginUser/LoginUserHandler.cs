@@ -1,4 +1,4 @@
-namespace Application.Security.Queries.LoginUser;
+namespace Application.Identity.Queries.LoginUser;
 
 public class LoginUserHandler(
     UserManager<CustomIdentityUser> manager,

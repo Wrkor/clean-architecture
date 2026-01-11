@@ -1,4 +1,4 @@
-namespace Application.Security.Commands.RegisterUser;
+namespace Application.Identity.Commands.RegisterUser;
 
 public class RegisterUserHandler(
     UserManager<CustomIdentityUser> manager,

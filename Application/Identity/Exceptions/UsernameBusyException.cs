@@ -1,4 +1,4 @@
-namespace Application.Security.Exceptions;
+namespace Application.Identity.Exceptions;
 
 public class UsernameBusyException(string username)
     : BadRequestException(

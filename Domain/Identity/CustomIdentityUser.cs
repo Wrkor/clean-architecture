@@ -1,4 +1,4 @@
-namespace Domain.Security;
+namespace Domain.Identity;
 
 public class CustomIdentityUser : IdentityUser
 {

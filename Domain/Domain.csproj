@@ -13,8 +13,7 @@
         <Folder Include="Abstractions\" />
         <Folder Include="Entities\" />
         <Folder Include="Exceptions\" />
-        <Folder Include="Security\" />
-        <Folder Include="Security\Dtos\" />
+        <Folder Include="Identity\" />
         <Folder Include="ValueObjects\" />
     </ItemGroup>
 </Project>
