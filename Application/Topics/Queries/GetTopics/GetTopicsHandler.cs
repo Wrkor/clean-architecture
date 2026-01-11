@@ -8,12 +8,12 @@ public class GetTopicsHandler(IApplicationDbContext dbContext)
         CancellationToken ct
     )
     {
-        var topics = await dbContext
+        var result = await dbContext
             .Topics.Where(t => !t.IsDeleted)
             .AsNoTracking()
+            .ProjectToType<TopicResponseDto>()
             .ToListAsync(ct);
 
-        var result = topics.ToTopicResponseDtoList();
         return new GetTopicsResult(result);
     }
 }

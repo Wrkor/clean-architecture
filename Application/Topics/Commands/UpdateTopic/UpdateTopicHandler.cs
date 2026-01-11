@@ -1,6 +1,6 @@
 namespace Application.Topics.Commands.UpdateTopic;
 
-public class UpdateTopicHandler(IApplicationDbContext dbContext)
+public class UpdateTopicHandler(IApplicationDbContext dbContext, IMapper mapper)
     : ICommandHandler<UpdateTopicCommand, UpdateTopicResult>
 {
     public async Task<UpdateTopicResult> Handle(
@@ -17,18 +17,11 @@ public class UpdateTopicHandler(IApplicationDbContext dbContext)
         if (topic is null || topic.IsDeleted)
             throw new TopicNotFoundException(request.Id);
 
-        topic.Update(
-            request.Object.Title,
-            request.Object.Summary,
-            request.Object.TopicType,
-            request.Object.Location.City,
-            request.Object.Location.Street,
-            request.Object.EventStartedAt
-        );
+        mapper.Map(request.Object, topic);
 
         await dbContext.SaveChangesAsync(ct);
 
-        var result = topic.ToTopicResponseDto();
+        var result = mapper.Map<TopicResponseDto>(topic);
         return new UpdateTopicResult(result);
     }
 }

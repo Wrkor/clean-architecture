@@ -1,5 +1,3 @@
-using Application.Topics.Commands.UpdateTopic;
-
 namespace API.Controllers
 {
     [Route("api")]

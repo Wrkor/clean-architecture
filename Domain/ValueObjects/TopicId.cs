@@ -18,4 +18,6 @@ public record TopicId
 
         return new TopicId(value);
     }
+
+    public static implicit operator Guid(TopicId id) => id.Value;
 }

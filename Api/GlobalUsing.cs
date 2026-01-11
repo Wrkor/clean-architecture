@@ -1,10 +1,11 @@
 global using Api;
 global using Api.Exceptions.Handler;
 global using Application;
-global using Application.Dtos;
 global using Application.Exceptions;
 global using Application.Topics.Commands.CreateTopic;
 global using Application.Topics.Commands.DeleteTopic;
+global using Application.Topics.Commands.UpdateTopic;
+global using Application.Topics.Dtos;
 global using Application.Topics.Queries.GetTopicById;
 global using Application.Topics.Queries.GetTopics;
 global using Infrastructure;

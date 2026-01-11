@@ -31,20 +31,4 @@ public class Topic : Entity<TopicId>
             Location = location,
         };
     }
-
-    public void Update(
-        string title,
-        string summary,
-        string topicType,
-        string city,
-        string street,
-        DateTime? eventStartedAt
-    )
-    {
-        Title = title ?? Title;
-        Summary = summary ?? Summary;
-        TopicType = topicType ?? TopicType;
-        EventStartedAt = eventStartedAt;
-        Location = Location.Of(city, street);
-    }
 }

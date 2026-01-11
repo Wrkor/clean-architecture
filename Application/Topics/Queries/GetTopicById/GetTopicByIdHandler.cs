@@ -9,14 +9,15 @@ public class GetTopicByIdHandler(IApplicationDbContext dbContext)
     )
     {
         var topicId = TopicId.Of(request.Id);
-        var topic = await dbContext
-            .Topics.AsNoTracking()
-            .FirstOrDefaultAsync(t => t.Id == topicId, ct);
+        var result = await dbContext
+            .Topics.Where(t => t.Id == topicId && !t.IsDeleted)
+            .AsNoTracking()
+            .ProjectToType<TopicResponseDto>()
+            .FirstOrDefaultAsync(ct);
 
-        if (topic is null || topic.IsDeleted)
+        if (result is null)
             throw new TopicNotFoundException(request.Id);
 
-        var result = topic.ToTopicResponseDto();
         return new GetTopicByIdResult(result);
     }
 }

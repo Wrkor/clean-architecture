@@ -5,7 +5,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+        <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="9.0.0" />
         <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.3.0" />
     </ItemGroup>
@@ -13,12 +13,10 @@
     <ItemGroup>
         <Folder Include="Data\" />
         <Folder Include="Data\DatabaseContext\" />
-        <Folder Include="Dtos\" />
-        <Folder Include="Exceptions\" />
-        <Folder Include="Extensions\" />
         <Folder Include="Services\" />
         <Folder Include="Topics\Commands\" />
         <Folder Include="Topics\Commands\CreateTopic\" />
+        <Folder Include="Topics\Mapping\" />
     </ItemGroup>
 
     <PropertyGroup>
