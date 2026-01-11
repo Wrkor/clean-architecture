@@ -5,6 +5,7 @@ namespace Api.Controllers;
 public class TopicsController(IMediator mediator) : ControllerBase
 {
     [HttpGet("topics")]
+    [ProducesResponseType(type: typeof(GetTopicsResult), 200)]
     public async Task<IResult> GetTopicsAsync(CancellationToken ct)
     {
         var query = new GetTopicsQuery();
@@ -13,6 +14,7 @@ public class TopicsController(IMediator mediator) : ControllerBase
     }
 
     [HttpGet("topics/{id}")]
+    [ProducesResponseType(type: typeof(GetTopicByIdResult), 200)]
     public async Task<IResult> GetTopicAsync(Guid id, CancellationToken ct)
     {
         var query = new GetTopicByIdQuery(id);
@@ -21,6 +23,7 @@ public class TopicsController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost("topics")]
+    [ProducesResponseType(type: typeof(CreateTopicResult), 200)]
     public async Task<IResult> CreateTopicAsync(
         CreateTopicDto @object,
         CancellationToken ct
@@ -33,6 +36,7 @@ public class TopicsController(IMediator mediator) : ControllerBase
     }
 
     [HttpPut("topics/{id}")]
+    [ProducesResponseType(type: typeof(UpdateTopicResult), 200)]
     public async Task<IResult> UpdateTopicAsync(
         Guid id,
         UpdateTopicDto @object,
@@ -45,6 +49,7 @@ public class TopicsController(IMediator mediator) : ControllerBase
     }
 
     [HttpDelete("topics/{id}")]
+    [ProducesResponseType(type: typeof(DeleteTopicResult), 200)]
     public async Task<IResult> DeleteAsync(Guid id, CancellationToken ct)
     {
         var command = new DeleteTopicCommand(id);

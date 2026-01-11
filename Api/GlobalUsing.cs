@@ -1,6 +1,7 @@
 global using System.Text;
 global using Api;
 global using Api.Exceptions.Handler;
+global using Api.Swagger.Filters;
 global using Application;
 global using Application.Exceptions;
 global using Application.Identity.Commands.RegisterUser;
@@ -23,3 +24,5 @@ global using Microsoft.AspNetCore.Diagnostics;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.Authorization;
 global using Microsoft.IdentityModel.Tokens;
+global using Microsoft.OpenApi;
+global using Swashbuckle.AspNetCore.SwaggerGen;

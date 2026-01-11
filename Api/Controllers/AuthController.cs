@@ -6,6 +6,7 @@ namespace Api.Controllers;
 public class AuthController(IMediator mediator) : ControllerBase
 {
     [HttpPost("login")]
+    [ProducesResponseType(type: typeof(LoginUserResult), 200)]
     public async Task<IResult> LoginAsync(
         LoginRequestDto @object,
         CancellationToken ct
@@ -17,6 +18,7 @@ public class AuthController(IMediator mediator) : ControllerBase
     }
 
     [HttpPost("register")]
+    [ProducesResponseType(type: typeof(RegisterUserResult), 200)]
     public async Task<IResult> RegisterAsync(
         RegisterUserRequestDto @object,
         CancellationToken ct

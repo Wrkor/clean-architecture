@@ -16,8 +16,18 @@ public static class DependencyInjection
             var filter = new AuthorizeFilter(policy);
             o.Filters.Add(filter);
         });
-        services.AddOpenApi();
+        services.AddCors(config);
+        services.AddSwagger();
+        services.AddIdentityServices(config);
 
+        return services;
+    }
+
+    public static IServiceCollection AddCors(
+        this IServiceCollection services,
+        IConfiguration config
+    )
+    {
         services.AddCors(o =>
         {
             o.AddDefaultPolicy(p =>
@@ -28,24 +38,22 @@ public static class DependencyInjection
             });
         });
 
-        services.AddIdentityServices(config);
-
         return services;
     }
 
-    public static WebApplication UseApiServices(this WebApplication app)
+    public static IServiceCollection AddSwagger(
+        this IServiceCollection services
+    )
     {
-        if (app.Environment.IsDevelopment())
-            app.MapOpenApi();
+        services.AddOpenApi();
+        services.AddEndpointsApiExplorer();
+        services.AddHttpContextAccessor();
+        services.AddSwaggerGen(o =>
+        {
+            o.DocumentFilter<DescriptionFilter>();
+        });
 
-        app.UseCors();
-        app.UseExceptionHandler(_ => { });
-        app.UseHttpsRedirection();
-        app.UseAuthentication();
-        app.UseAuthorization();
-        app.MapControllers();
-
-        return app;
+        return services;
     }
 
     private static IServiceCollection AddIdentityServices(
@@ -83,5 +91,32 @@ public static class DependencyInjection
             });
 
         return services;
+    }
+
+    public static WebApplication UseApiServices(this WebApplication app)
+    {
+        if (app.Environment.IsDevelopment())
+            app.UseSwagger();
+
+        app.UseCors();
+        app.UseExceptionHandler(_ => { });
+        app.UseAuthentication();
+        app.UseAuthorization();
+        app.MapControllers();
+
+        return app;
+    }
+
+    private static WebApplication UseSwagger(this WebApplication app)
+    {
+        app.MapOpenApi("/swagger/v1/swagger.json");
+        app.UseSwagger(_ => { });
+        app.UseSwaggerUI(o =>
+        {
+            o.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+            o.RoutePrefix = string.Empty;
+        });
+
+        return app;
     }
 }
