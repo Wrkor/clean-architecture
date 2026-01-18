@@ -27,4 +27,10 @@ public class Relationship : Entity<RelationshipId>
             Topic = topic,
         };
     }
+
+    public void Delete()
+    {
+        IsDeleted = true;
+        DeletedAt = DateTime.UtcNow;
+    }
 }

@@ -9,16 +9,14 @@ public class DeleteTopicHandler(IApplicationDbContext dbContext)
     )
     {
         var topicId = TopicId.Of(request.Id);
-        var topic = await dbContext.Topics.FirstOrDefaultAsync(
-            t => t.Id == topicId,
-            ct
-        );
+        var topic = await dbContext
+            .Topics.Include(r => r.Users)
+            .FirstOrDefaultAsync(t => t.Id == topicId, ct);
 
         if (topic is null || topic.IsDeleted)
             throw new TopicNotFoundException(request.Id);
 
-        topic.IsDeleted = true;
-        topic.DeletedAt = DateTime.UtcNow;
+        topic.Delete();
 
         await dbContext.SaveChangesAsync(ct);
 

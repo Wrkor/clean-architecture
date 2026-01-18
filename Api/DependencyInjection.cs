@@ -17,17 +17,13 @@ public static class DependencyInjection
             o.Filters.Add(filter);
         });
         services.AddHttpContextAccessor();
-        services.AddCors(config);
+        services.AddCors();
         services.AddSwagger();
-        services.AddIdentityServices(config);
 
         return services;
     }
 
-    public static IServiceCollection AddCors(
-        this IServiceCollection services,
-        IConfiguration config
-    )
+    public static IServiceCollection AddCors(this IServiceCollection services)
     {
         services.AddCors(o =>
         {
@@ -56,53 +52,17 @@ public static class DependencyInjection
         return services;
     }
 
-    private static IServiceCollection AddIdentityServices(
-        this IServiceCollection services,
-        IConfiguration config
-    )
-    {
-        services
-            .AddIdentityCore<CustomIdentityUser>(o =>
-            {
-                o.Password.RequireDigit = false;
-                o.Password.RequiredLength = 1;
-                o.Password.RequireLowercase = false;
-                o.Password.RequireUppercase = false;
-                o.Password.RequireNonAlphanumeric = false;
-            })
-            .AddEntityFrameworkStores<ApplicationDbContext>();
-
-        var secretKey = config.GetValue<string>("Auth:SecretKey")!;
-        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-
-        services
-            .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(o =>
-            {
-                o.TokenValidationParameters = new TokenValidationParameters()
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = key,
-                    ValidateLifetime = true,
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero,
-                };
-            });
-
-        return services;
-    }
-
     public static WebApplication UseApiServices(this WebApplication app)
     {
-        if (app.Environment.IsDevelopment())
-            app.UseSwagger();
-
         app.UseCors();
+        app.UseDetailsReponse();
         app.UseExceptionHandler(_ => { });
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
+
+        if (app.Environment.IsDevelopment())
+            app.UseSwagger();
 
         return app;
     }
@@ -115,6 +75,30 @@ public static class DependencyInjection
         {
             o.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             o.RoutePrefix = string.Empty;
+        });
+
+        return app;
+    }
+
+    public static WebApplication UseDetailsReponse(this WebApplication app)
+    {
+        app.UseStatusCodePages(async ctx =>
+        {
+            if (ctx.HttpContext.Response.StatusCode == 403)
+            {
+                var details = new ProblemDetails()
+                {
+                    Title = "Forbidden",
+                    Detail = "У вас недостаточно прав доступа",
+                    Status = StatusCodes.Status403Forbidden,
+                    Instance = ctx.HttpContext.Request.Path,
+                };
+                details.Extensions.Add(
+                    "traceId",
+                    ctx.HttpContext.TraceIdentifier
+                );
+                await ctx.HttpContext.Response.WriteAsJsonAsync(details);
+            }
         });
 
         return app;

@@ -40,4 +40,12 @@ public class Topic : Entity<TopicId>
 
         return IsVoided;
     }
+
+    public void Delete()
+    {
+        IsDeleted = true;
+        DeletedAt = DateTime.UtcNow;
+
+        Users.ForEach(r => r.Delete());
+    }
 }
