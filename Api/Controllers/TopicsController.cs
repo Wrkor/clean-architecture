@@ -1,5 +1,3 @@
-using Application.Topics.Commands.JoinLeaveTopic;
-
 namespace Api.Controllers;
 
 [Route("api")]

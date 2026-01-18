@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "e6e0994f-c97f-4588-a451-d8e85491816a",
+		"_postman_id": "89bf96e1-a221-4c16-af12-485fe2006ea3",
 		"name": "Together Hub API - Платформа для создания и управления топиками",
 		"description": "## Коллекция для тестирования API социальной платформы Together Hub.\n\n**Содержит эндпоинты аутентификации, управления топиками и комментариями**",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "39603735"
+		"_exporter_id": "33340586"
 	},
 	"item": [
 		{
@@ -19,20 +19,39 @@
 								"exec": [
 									"const response = pm.response.json();",
 									"",
-									"if (response.topics && response.length > 0) {",
-									"    pm.collectionVariables.set(\"firstTopicId\", response[0].id);",
-									"    console.log(\"Первый ID топика сохранен: \" + response[0].id);",
+									"if (!!response.objects && response.objects.length > 0) {",
+									"    pm.collectionVariables.set(\"firstTopicId\", response.objects[0].id);",
+									"    console.log(\"Первый ID топика сохранен: \" + response.objects[0].id);",
 									"}",
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -54,7 +73,14 @@
 					"name": "/topic",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "GET",
 						"header": [],
@@ -137,7 +163,8 @@
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						},
 						{
@@ -147,25 +174,33 @@
 									"const topic = pm.response.json();",
 									"",
 									"if (topic) {",
-									"    pm.collectionVariables.set(\"firstTopicId\", topic.id);",
-									"    console.log(\"Первый ID топика сохранен: \" + topic.id);",
+									"    pm.collectionVariables.set(\"firstTopicId\", topic.object.id);",
+									"    console.log(\"Первый ID топика сохранен: \" + topic.object.id);",
 									"}",
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"{{title}}\",\n  \"eventStart\": \"{{currentDateTime}}\",\n  \"summary\": \"{{summary}}\",\n  \"topicType\": \"{{topicType}}\",\n  \"location\": {\n    \"street\": \"{{locationStreet}}\",\n    \"city\": \"{{locationCity}}\"\n  }\n}\n",
+							"raw": "{\n  \"title\": \"{{title}}\",\n  \"eventStartedAt\": \"{{currentDateTime}}\",\n  \"summary\": \"{{summary}}\",\n  \"topicType\": \"{{topicType}}\",\n  \"location\": {\n    \"street\": \"{{locationStreet}}\",\n    \"city\": \"{{locationCity}}\"\n  }\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -191,13 +226,20 @@
 					"name": "/update",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Обновлено: Технологические тренды 2035\",\n  \"eventStart\": \"2135-01-15T10:00:00\",\n  \"summary\": \"Обновлено: Обзор ключевых технологических инноваций\",\n  \"topicType\": \"Обновлено: Тип\",\n  \"location\": {\n    \"street\": \"Обновлено: Кутузовский проспект, 36\",\n    \"city\": \"Обновлено: Москва\"\n  }\n}",
+							"raw": "{\n  \"title\": \"Обновлено: Технологические тренды 2035\",\n  \"eventStartedAt\": \"2135-01-15T10:00:00\",\n  \"summary\": \"Обновлено: Обзор ключевых технологических инноваций\",\n  \"topicType\": \"Обновлено: Тип\",\n  \"location\": {\n    \"street\": \"Обновлено: Кутузовский проспект, 36\",\n    \"city\": \"Обновлено: Москва\"\n  }\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -223,7 +265,14 @@
 					"name": "/delete",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "DELETE",
 						"header": [],
@@ -246,20 +295,27 @@
 					"name": "/{id}/join",
 					"request": {
 						"auth": {
-							"type": "noauth"
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/topics/join/{{firstTopicId}}",
+							"raw": "{{host}}/api/topics/{{firstTopicId}}/join",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
 								"topics",
-								"join",
-								"{{firstTopicId}}"
+								"{{firstTopicId}}",
+								"join"
 							]
 						},
 						"description": "Несколько сценариев\n\nДля создателя топика:\n\n- Закрытие топика, если активен\n    \n- Открытие топика, если закрыт\n    \n\nДля обычного пользователя:\n\n- Регистрация участия текущего пользователя в выбранном топике если ещё не зарегистрирован\n    \n- Отмена участия в выбранном топике если уже зарегистрирован"
@@ -313,13 +369,13 @@
 								"exec": [
 									"if (pm.response.code === 200 && ",
 									"    pm.response.json() && ",
-									"    pm.response.json().result.jwtToken) {",
+									"    pm.response.json().object.token) {",
 									"    ",
-									"    pm.collectionVariables.set(\"jwtToken\", pm.response.json().result.jwtToken);",
+									"    pm.collectionVariables.set(\"token\", pm.response.json().object.token);",
 									"    ",
 									"    console.clear();",
-									"    console.log(\"✅ json:  \"+ pm.response.json().result.jwtToken);",
-									"    console.log(\"🔑 Токен: \" + pm.collectionVariables.get(\"jwtToken\"));",
+									"    console.log(\"✅ json:  \"+ pm.response.json().object.token);",
+									"    console.log(\"🔑 Токен: \" + pm.collectionVariables.get(\"token\"));",
 									"} else {",
 									"    console.error(\"❎ JWT Token не найден\");",
 									"    console.error(\"Статус ответа: \" + pm.response.code);",
@@ -328,7 +384,8 @@
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -340,7 +397,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"FullName\": \"Сергей Ка.\",\n  \"Username\": \"Serenya\",\n  \"Email\": \"i@ksergey.ru\",\n  \"Password\": \"1111\"\n}",
+							"raw": "{\n  \"FullName\": \"Сергей Ка.\",\n  \"Username\": \"Serkenya\",\n  \"Email\": \"ijk@ksergey.ru\",\n  \"Password\": \"1\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -371,13 +428,13 @@
 								"exec": [
 									"if (pm.response.code === 200 && ",
 									"    pm.response.json() && ",
-									"    pm.response.json().result.jwtToken) {",
+									"    pm.response.json().object.token) {",
 									"    ",
-									"    pm.collectionVariables.set(\"jwtToken\", pm.response.json().result.jwtToken);",
+									"    pm.collectionVariables.set(\"token\", pm.response.json().object.token);",
 									"    ",
 									"    console.clear();",
-									"    console.log(\"✅ json:  \"+ pm.response.json().result.jwtToken);",
-									"    console.log(\"🔑 Токен: \" + pm.collectionVariables.get(\"jwtToken\"));",
+									"    console.log(\"✅ json:  \"+ pm.response.json().object.token);",
+									"    console.log(\"🔑 Токен: \" + pm.collectionVariables.get(\"token\"));",
 									"} else {",
 									"    console.error(\"❎ JWT Token не найден\");",
 									"    console.error(\"Статус ответа: \" + pm.response.code);",
@@ -386,7 +443,8 @@
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						},
 						{
@@ -396,7 +454,8 @@
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -408,7 +467,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"Email\": \"user1@example.com\",\n  // \"Email\": \"i@ksergey.ru\",\n  \"Password\": \"1111\"\n}",
+							"raw": "{\n//   \"Email\": \"ijk1@ksergey.ru\",\n//   \"Password\": \"1\"\n   \"Email\": \"i@ksergey.ru\",\n  \"Password\": \"111\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -416,13 +475,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/Auth/login",
+							"raw": "{{host}}/api/auth/login",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
-								"Auth",
+								"auth",
 								"login"
 							]
 						},
@@ -444,7 +503,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{jwtToken}}",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -480,7 +539,8 @@
 									""
 								],
 								"type": "text/javascript",
-								"packages": {}
+								"packages": {},
+								"requests": {}
 							}
 						}
 					],
@@ -490,7 +550,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "{{jwtToken}}",
+									"value": "{{token}}",
 									"type": "string"
 								}
 							]
@@ -499,7 +559,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"Text\":\"Текст комментария {{shortUUID}}\"\n}",
+							"raw": "{\n  \"TopicId\": \"{{firstTopicId}}\",\n  \"Text\":\"Текст комментария {{shortUUID}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -507,14 +567,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/api/comments/{{firstTopicId}}",
+							"raw": "{{host}}/api/comments",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
 								"api",
-								"comments",
-								"{{firstTopicId}}"
+								"comments"
 							]
 						},
 						"description": "Добавление нового комментария к выбранному топику.\n\nТребует авторизации и передачи текста комментария"
@@ -523,72 +582,6 @@
 				}
 			],
 			"description": "Работа с комментариями"
-		},
-		{
-			"name": "test",
-			"item": [
-				{
-					"name": "/test1",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwtToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/test/test1",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"test",
-								"test1"
-							]
-						},
-						"description": "Первый метод для тестов авторизации"
-					},
-					"response": []
-				},
-				{
-					"name": "/test2",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwtToken}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{host}}/api/test/test2",
-							"host": [
-								"{{host}}"
-							],
-							"path": [
-								"api",
-								"test",
-								"test2"
-							]
-						},
-						"description": "Второй метод для тестов авторизации"
-					},
-					"response": []
-				}
-			],
-			"description": "Тестовые эндпоинты"
 		}
 	],
 	"event": [
@@ -597,6 +590,7 @@
 			"script": {
 				"type": "text/javascript",
 				"packages": {},
+				"requests": {},
 				"exec": [
 					""
 				]
@@ -607,6 +601,7 @@
 			"script": {
 				"type": "text/javascript",
 				"packages": {},
+				"requests": {},
 				"exec": [
 					""
 				]
@@ -616,8 +611,7 @@
 	"variable": [
 		{
 			"key": "host",
-			"value": "http://localhost:5001",
-			"type": "string"
+			"value": "http://localhost:5001"
 		},
 		{
 			"key": "jwtToken",
@@ -629,6 +623,10 @@
 		},
 		{
 			"key": "shortUUID",
+			"value": ""
+		},
+		{
+			"key": "token",
 			"value": ""
 		}
 	]

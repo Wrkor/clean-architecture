@@ -9,6 +9,7 @@ public class Topic : Entity<TopicId>
     public DateTime? EventStartedAt { get; set; } = default!;
     public Location Location { get; set; } = default!;
     public List<Relationship> Users { get; set; } = [];
+    public List<Comment> Comments { get; set; } = [];
 
     public static Topic Create(
         TopicId id,

@@ -1,4 +1,5 @@
 global using System.Reflection;
+global using Application.Comments.Dtos;
 global using Application.Data.DatabaseContext;
 global using Application.Exceptions;
 global using Application.Identity.Dtos;
